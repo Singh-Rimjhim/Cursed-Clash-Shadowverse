@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cursed Clash: Shadowverse</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brandmark">CC<span>:</span>S</div>
+      <div class="brand-copy">
+        <div class="eyebrow">SORCERER NETWORK // TOKYO SECTOR 07</div>
+        <h1>CURSED CLASH <span>SHADOWVERSE</span></h1>
+      </div>
+      <div class="rank-chip"><span class="rank-dot"></span><div><small>SORCERER RANK</small><b id="rankLabel">GRADE 4</b></div></div>
+    </header>
+
+    <section id="hubScreen" class="hub-screen">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow pink">THE VEIL IS BREAKING</p>
+          <h2>Protect the city.<br><em>Master the curse.</em></h2>
+          <p class="hero-desc">Cursed spirits are spilling into the city. Train your technique, evacuate civilians, and close the breach before the whole district falls.</p>
+          <div class="hero-stats">
+            <div><b id="totalSaved">0</b><small>CIVILIANS SAVED</small></div>
+            <div><b id="bestWave">0</b><small>BEST WAVE</small></div>
+            <div><b id="xpValue">0</b><small>FIELD XP</small></div>
+          </div>
+        </div>
+        <div class="hero-orb" aria-hidden="true">
+          <div class="orb-ring ring-a"></div><div class="orb-ring ring-b"></div>
+          <div class="orb-core"><span>呪</span></div>
+          <div class="orb-label">VEIL<br>BREACH <b>07</b></div>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <div><p class="eyebrow">SELECT OPERATION</p><h2>Choose your mission</h2></div>
+        <span class="live-tag"><i></i> THREAT LEVEL: RISING</span>
+      </div>
+
+      <div class="mode-grid">
+        <button class="mode-card rescue-card" data-mode="rescue">
+          <div class="card-top"><span class="mode-number">01 / FIELD OP</span><span class="mode-icon">✦</span></div>
+          <div class="card-art art-city"><span class="silhouette s1"></span><span class="silhouette s2"></span><span class="art-glow"></span><span class="art-label">EVACUATION ZONE</span></div>
+          <div class="card-copy"><h3>Veilbreaker Rescue</h3><p>Fight through curse waves while escorting civilians to the safe zone.</p><div class="card-meta"><span>⚔ COMBAT</span><span>♡ RESCUE</span><span>★ REWARDS</span></div></div>
+          <span class="card-arrow">↗</span>
+        </button>
+
+        <button class="mode-card survival-card" data-mode="survival">
+          <div class="card-top"><span class="mode-number">02 / SURVIVAL</span><span class="mode-icon">◈</span></div>
+          <div class="card-art art-ruins"><span class="ruin r1"></span><span class="ruin r2"></span><span class="art-glow"></span><span class="art-label">ENDLESS NIGHT</span></div>
+          <div class="card-copy"><h3>Endless Curse Night</h3><p>Survive escalating waves. Every round brings more and stronger spirits.</p><div class="card-meta"><span>∞ WAVES</span><span>⚡ UPGRADES</span></div></div>
+          <span class="card-arrow">↗</span>
+        </button>
+
+        <button class="mode-card duel-card" data-mode="duel">
+          <div class="card-top"><span class="mode-number">03 / SPECIAL GRADE</span><span class="mode-icon">◎</span></div>
+          <div class="card-art art-domain"><span class="domain-circle"></span><span class="domain-sigil">✧</span><span class="art-glow"></span><span class="art-label">DOMAIN COLLISION</span></div>
+          <div class="card-copy"><h3>Domain Duel</h3><p>A focused boss encounter. Dodge its tells and unleash your ultimate.</p><div class="card-meta"><span>☄ BOSS</span><span>◉ DOMAIN</span></div></div>
+          <span class="card-arrow">↗</span>
+        </button>
+      </div>
+
+      <div class="bottom-strip">
+        <div><span class="strip-icon">✧</span><div><b>Technique: Violet Thread</b><small>Quick strikes build energy. Spend it on ranged bursts and your domain.</small></div></div>
+        <div><span class="strip-icon">⌘</span><div><b>Field Support Online</b><small>Keyboard and on-screen controls supported.</small></div></div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="game-screen hidden">
+      <div class="game-toolbar">
+        <button id="backBtn" class="ghost-btn">← HQ</button>
+        <div class="mission-title"><small id="missionType">FIELD OPERATION</small><b id="missionName">VEILBREAKER RESCUE</b></div>
+        <div class="mission-chip" id="missionObjective">SAVE 3 CIVILIANS</div>
+      </div>
+      <div class="hud">
+        <div class="hud-card">
+          <div class="hud-label"><span>RIN / VIOLET THREAD</span><b id="hpText">100 / 100</b></div>
+          <div class="meter"><span id="hpMeter" class="hp-meter"></span></div>
+          <div class="hud-label energy-label"><span>CURSED ENERGY</span><b id="energyText">0%</b></div>
+          <div class="meter"><span id="energyMeter" class="energy-meter"></span></div>
+        </div>
+        <div class="hud-card enemy-hud">
+          <div class="hud-label"><span id="enemyName">CURSED SPIRIT</span><b id="enemyHpText">—</b></div>
+          <div class="meter"><span id="enemyMeter" class="enemy-meter"></span></div>
+          <div class="hud-foot"><span id="waveText">WAVE 1</span><span id="savedText">CIVILIANS 0/3</span></div>
+        </div>
+      </div>
+      <div class="arena-wrap">
+        <canvas id="arena" width="1000" height="560" aria-label="Cursed Clash game arena"></canvas>
+        <div id="arenaToast" class="arena-toast">MISSION START</div>
+        <div id="upgradePanel" class="upgrade-panel hidden">
+          <p class="eyebrow pink">WAVE CLEARED</p><h3>Choose a field upgrade</h3>
+          <div class="upgrade-options">
+            <button data-upgrade="power"><b>✦</b><span><strong>Heavy Thread</strong><small>Attacks deal +5 damage</small></span></button>
+            <button data-upgrade="vitality"><b>♡</b><span><strong>Reinforced Guard</strong><small>Restore 25 health</small></span></button>
+            <button data-upgrade="charge"><b>ϟ</b><span><strong>Flow State</strong><small>Energy builds faster</small></span></button>
+          </div>
+        </div>
+        <div id="endPanel" class="end-panel hidden">
+          <p class="eyebrow pink" id="endEyebrow">MISSION REPORT</p><h2 id="endTitle">OPERATION COMPLETE</h2><p id="endCopy">The district is safe.</p><button id="retryBtn" class="primary-btn">RUN IT BACK ↻</button><button id="hqBtn" class="ghost-btn">RETURN TO HQ</button>
+        </div>
+      </div>
+      <div class="game-bottom">
+        <div class="controls-hint"><b>KEYS</b><span><kbd>A</kbd><kbd>D</kbd> Move</span><span><kbd>W</kbd> Jump</span><span><kbd>J</kbd> Strike</span><span><kbd>K</kbd> Burst</span><span><kbd>L</kbd> Domain</span><span><kbd>Shift</kbd> Dash</span></div>
+        <div class="touch-controls">
+          <div class="move-buttons"><button data-action="left">◀</button><button data-action="right">▶</button><button data-action="jump">↑</button></div>
+          <div class="attack-buttons"><button data-action="attack">STRIKE <small>J</small></button><button data-action="burst">BURST <small>K · 20E</small></button><button data-action="dash">DASH <small>SHIFT</small></button><button data-action="domain" class="domain-button">DOMAIN <small>L · 100E</small></button></div>
+        </div>
+      </div>
+      <p id="statusLine" class="status-line">Stay sharp, sorcerer.</p>
+    </section>
+    <footer><span>SHADOWVERSE // BUILD 0.1</span><span>ORIGINAL FAN-MADE CONCEPT · NO IMAGE ASSETS</span></footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
